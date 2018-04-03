@@ -1,14 +1,30 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="userProfile?.firstName" (click)="goToProfile()">
+        <ion-icon name="person">Profile</ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="page-home">
+  <h3 col-6 *ngIf="userProfile?.firstName || userProfile?.lastName;else guest">
+    Welcome, {{userProfile?.firstName}} {{userProfile?.lastName}}!
+  </h3>
+  <ng-template #guest>
+    <h3> Welcome guest!</h3>
+  </ng-template>
+  <button ion-button block color="primary" (click)="goToCreate()">
+    Create a new Event
+  </button>
+  <button ion-button block color="primary" (click)="goToList()">
+    See your events
+  </button>
+
+  <button ion-button block (click)="logOut()">Logout</button>
 </ion-content>
