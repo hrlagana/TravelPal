@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProfileProvider } from '../../providers/profile/profile';
 
+import firebase from 'firebase';
+
 
 @Component({
   selector: "page-home",
@@ -12,10 +14,25 @@ import { ProfileProvider } from '../../providers/profile/profile';
 export class HomePage {
   public userProfile: any;
 
+  public countryList: Array<any>;
+  public loadedCountryList: Array<any>;
+  public countryRef: firebase.database.Reference;
 
+  public searchValue: string = "";
+  public country: any = {};
+  public Selcountry: any = {};
 
-  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public profileProvider: ProfileProvider) { 
-    
+  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public profileProvider: ProfileProvider) {
+    this.countryRef = firebase.database().ref('/countries');
+    this.countryRef.on('value', countryList => {
+      let countries = [];
+      countryList.forEach(country => {
+        countries.push(country.val());
+        return false;
+      });
+      this.countryList = countries;
+      this.loadedCountryList = countries;
+    });
   }
 
   goToProfile(): void {
@@ -42,5 +59,35 @@ export class HomePage {
     });
   }
 
-  
+
+  initializeItems(): void {
+    this.countryList = this.loadedCountryList;
+  }
+
+  getCountries(searchbar) {
+    // Reset items back to all of the items
+    this.initializeItems();
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+    this.countryList = this.countryList.filter((v) => {
+      if (v.name && q) {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+    console.log(q, this.countryList.length);
+  }
+
+  updateCountry(Selcountry: string): void{
+    this.Selcountry = Selcountry;
+    this.userProfile.country = Selcountry;
+    this.profileProvider.updateCountry(Selcountry);
+  }
+ 
 }

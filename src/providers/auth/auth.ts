@@ -13,7 +13,7 @@ export class AuthProvider {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
 
-  signupUser(firstName: string, lastName: string, email: string, password: string, gender: string, DOB: string): Promise<any> {
+  signupUser(firstName: string, lastName: string, email: string, password: string, gender: string, DOB: string,country: string): Promise<any> {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -38,6 +38,10 @@ export class AuthProvider {
           .database()
           .ref(`/userProfile/${newUser.uid}/DOB`)
           .set(DOB);
+          firebase
+          .database()
+          .ref(`/userProfile/${newUser.uid}/country`)
+          .set(country);
       })
       .catch(error => {
         console.error(error);

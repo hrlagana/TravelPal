@@ -51,7 +51,12 @@
       <ion-datetime formControlName="DOB" displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY" placeholder="Your Date of Birth"></ion-datetime>
     </ion-item>
 
-    <button ion-button color="seconday" text-center type="submit" [disabled]="!signupForm.valid">Register</button>
+
+    <ion-item>
+      <ion-label stacked>Destination</ion-label>
+      <ion-input formControlName="country" type="country" placeholder="In which country are you going to travel soon?" [class.invalid]="!signupForm.controls.country.valid && signupForm.controls.country.touched"></ion-input>
+    </ion-item>
+    <button ion-button color="secondary" text-center type="submit" [disabled]="!signupForm.valid">Register</button>
 
   </form>
 

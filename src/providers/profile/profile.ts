@@ -75,4 +75,8 @@ export class ProfileProvider {
     return this.userProfile.update({ gender });
   }
 
+  updateCountry(country: string): Promise<any> {
+    return this.userProfile.update({ country });
+  }
+
 }

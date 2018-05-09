@@ -40,6 +40,9 @@ export class SignupPage {
       ],
       "DOB": [
         '', Validators.required
+      ],
+      "country":[
+        '', Validators.required
       ]
     });
 
@@ -62,8 +65,9 @@ export class SignupPage {
       const password: string = this.signupForm.value.password;
       const gender: string = this.signupForm.value.gender;
       const DOB: string = this.signupForm.value.DOB;
+      const country: string = this.signupForm.value.country;
 
-      this.authProvider.signupUser(firstName, lastName, email, password, gender, DOB).then(user => {
+      this.authProvider.signupUser(firstName, lastName, email, password, gender, DOB, country).then(user => {
         this.loading.dismiss().then(() => {
           this.navCtrl.setRoot(HomePage);
         });

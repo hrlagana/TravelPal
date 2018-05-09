@@ -20,6 +20,7 @@ export class ProfilePage {
   public interestRef: firebase.database.Reference;
 
   public gender: string;
+  private value: any = {};
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public authProvider: AuthProvider, public profileProvider: ProfileProvider) {
 
@@ -30,6 +31,7 @@ export class ProfilePage {
       this.userProfile = userProfileSnapshot.val();
       this.DOB = userProfileSnapshot.val().DOB;
       this.interestList = userProfileSnapshot.val().interestList;
+      this.gender = userProfileSnapshot.val().gender;
     });
 
   }
@@ -114,8 +116,8 @@ export class ProfilePage {
     alert.present();
   }
 
-  updateInterests(): void {
-    let alert: Alert = this.alertCtrl.create({
+  updateInterests(interestList): void {
+    /*let alert: Alert = this.alertCtrl.create({
       inputs: [
         {
           name: 'newInterest',
@@ -135,11 +137,44 @@ export class ProfilePage {
         }
       ]
     });
+    alert.present();*/
+    this.interestList = interestList;
+    this.userProfile.interestList = interestList;
+    this.profileProvider.updateInterests(interestList);
+    console.log('Selected', interestList);
+
+  }
+
+  updateGender(gender): void {
+    let alert: Alert = this.alertCtrl.create({
+      inputs: [
+        {
+          name: 'newGender',
+          placeholder: "Your Gender",
+          value: this.userProfile.gender
+        }
+      ],
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: 'Save',
+          handler: data => {
+            this.profileProvider.updateGender(
+              data.newGender
+            );
+          }
+        }
+      ]
+    });
     alert.present();
   }
 
-  updateGender(gender: string): void {
-    this.profileProvider.updateGender(gender);
+
+  genderUpdate(value: any): void {
+    console.log('Selected', value);
+
+    this.value = value;
+    this.userProfile.gender = value;
   }
 
 }
