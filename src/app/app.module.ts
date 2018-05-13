@@ -9,12 +9,13 @@ import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { EventProvider } from '../providers/event/event';
 import { ProfileProvider } from '../providers/profile/profile';
+import { QuestionProvider } from '../providers/question/question';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-import { Camera } from '@ionic-native/camera';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAMXFGqwJQP_ffWx12uPGWQDNjXGDGKiro",
@@ -49,7 +50,7 @@ export const firebaseConfig = {
     AuthProvider,
     EventProvider,
     ProfileProvider,
-    Camera
+    QuestionProvider
   ]
 })
 export class AppModule { }

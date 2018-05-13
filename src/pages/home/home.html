@@ -26,6 +26,10 @@
     See your events
   </button>
 
+  <button ion-button block color="primary" (click)="CreateQuestion()">
+    Ask a new Question
+  </button>
+
 
   <ion-label stacked>In which country are you going to travel ?</ion-label>
   <ion-searchbar [(ngModel)]="searchValue" (ionInput)="getCountries($event)"></ion-searchbar>

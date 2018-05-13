@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>New Question</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-item>
+        <ion-label stacked>Question Name</ion-label>
+        <ion-input [(ngModel)]="questionName" type="text" placeholder="What's your question?">
+        </ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Question Date</ion-label>
+        <ion-datetime displayFormat="D MMM YYYY, HH:mm" [(ngModel)]="questionDate"></ion-datetime>
+    </ion-item>
+    <button ion-button block (click)="createQuestion(questionName, questionDate)">
+        Submit your Question
+    </button>
+
+
+
+</ion-content>

@@ -20,7 +20,7 @@ export class ProfilePage {
   public interestRef: firebase.database.Reference;
 
   public gender: string;
-  private value: any = {};
+  
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public authProvider: AuthProvider, public profileProvider: ProfileProvider) {
 
@@ -138,7 +138,7 @@ export class ProfilePage {
       ]
     });
     alert.present();*/
-    this.interestList = interestList;
+    
     this.userProfile.interestList = interestList;
     this.profileProvider.updateInterests(interestList);
     console.log('Selected', interestList);
@@ -171,9 +171,9 @@ export class ProfilePage {
 
 
   genderUpdate(value: any): void {
-    console.log('Selected', value);
+    console.log('Selected gender', value);
 
-    this.value = value;
+   
     this.userProfile.gender = value;
   }
 

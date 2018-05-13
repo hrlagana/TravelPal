@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProfileProvider } from '../../providers/profile/profile';
+import { QuestionProvider } from '../../providers/question/question';
 
 import firebase from 'firebase';
 
@@ -20,7 +21,7 @@ export class HomePage {
 
   public searchValue: string = "";
   public country: any = {};
-  public Selcountry: any = {};
+  
 
   constructor(public navCtrl: NavController, public authProvider: AuthProvider, public profileProvider: ProfileProvider) {
     this.countryRef = firebase.database().ref('/countries');
@@ -85,9 +86,15 @@ export class HomePage {
   }
 
   updateCountry(Selcountry: string): void{
-    this.Selcountry = Selcountry;
+    
     this.userProfile.country = Selcountry;
     this.profileProvider.updateCountry(Selcountry);
+    
+    console.log('Selected country', Selcountry);
   }
  
+  CreateQuestion(){
+    this.navCtrl.push('QuestionCreatePage');
+  }
+
 }
